@@ -157,7 +157,11 @@
             element.trigger('ajax:success', [data, status, xhr]);
           },
           complete: function(xhr, status) {
-            element.trigger('ajax:complete', [xhr, status]);
+            if (element.parents('html').length > 0) {
+              element.trigger('ajax:complete', [xhr, status]);
+            } else {
+              $(document).trigger('ajax:complete', [xhr, status]);
+            }
           },
           error: function(xhr, status, error) {
             element.trigger('ajax:error', [xhr, status, error]);
